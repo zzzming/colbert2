@@ -1,6 +1,6 @@
 [tool.poetry]
-name = "spc-colbert"
-version = "0.3"
+name = "skypoint_colbert_embeddings"
+version = "0.3.4"
 description = ""
 authors = ["Avi Sahney <avi.sahney@skypointcloud.com>"]
 readme = "README.md"
@@ -8,6 +8,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 torch = "^2.2.0"
 colbert-ai = "^0.2.19"
+python = "^3.8"
 
 [[tool.poetry.packages]]
 include = "**/*"

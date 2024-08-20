@@ -127,8 +127,8 @@ class ColbertAstraRetriever:
         query_encodings = self.colbertEmbeddings.encode_query(
             query, query_maxlen=query_maxlen
         )
-
         top_k = max(math.floor(len(query_encodings) / 2), 16)
+        logging.info("query_maxlen = %s", query_maxlen)
         logging.info(f"query length {len(query)} embeddings top_k: {top_k}")
 
         # find the most relevant documents
@@ -231,6 +231,7 @@ def get_colbert_answer(
     colbert_text_table: str,
     colbert_embedding_table: str,
     k : int = 5,
+    query_maxlen : int = -1,
 ) -> List[Document]:
     """
     Retrieve documents from AstraDB for a list of queries.
@@ -246,7 +247,7 @@ def get_colbert_answer(
     retriever = ColbertAstraRetriever(
         astraDB=astra, colbertEmbeddings=colbert, verbose=True
     )
-    answers = retriever.retrieve_concurrently(queries ,k)
+    answers = retriever.retrieve_concurrently(queries ,k, query_maxlen)
     documents = []
     for a in answers:
         logging.info(f"Title: {a.get('title')},\n body: {a.get('body')}")
